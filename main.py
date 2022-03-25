@@ -1,73 +1,42 @@
 from collections import defaultdict
 
 def supersort(a, k):
-    """
-    The main sorting algorithm. You'll complete the
-    three funcions count_values, get_positions, and construct_output.
-    
-    Params:
-      a.....the input list
-      k.....the maximum element in a
-      
-    Returns:
-      sorted version a
-    """
     counts = count_values(a, k)
     positions = get_positions(counts)
     return construct_output(a, positions)
 
 def count_values(a, k):
-    """
-    Params:
-      a.....input list
-      k.....maximum value in a
-      
-    Returns:
-      a list of k values; element i of the list indicates
-      how often value i appears in a
-      
-    >>> count_values([2,2,1,0,1,0,1,3], 3)
-    [2, 3, 2, 1]
-    """
-    ###TODO
-    pass
+  counting = [0] * (k+1)
+  for i in a:
+    counting[i] = counting[i] + 1
+  return counting
 
 def test_count_values():
     assert count_values([2,2,1,0,1,0,1,3], 3) == [2, 3, 2, 1]
     
 def get_positions(counts):
-    """
-    Params:
-      counts...counts of each value in the input
-    Returns:
-      a list p where p[i] indicates the location of the first
-      appearance of i in the desired output.
+  a = []
+  b = reduce(plus,0,counts[:0])
+  c = reduce(plus,0,counts[:1])
+  d = reduce(plus,0,counts[:2])  
+  e = reduce(plus,0,counts[:3])
 
-    >>> get_positions([2, 3, 2, 1])
-    [0, 2, 5, 7]    
-    """
-    ###TODO
-    pass
-    
+  a.append(b)
+  a.append(c)
+  a.append(d)
+  a.append(e)
+  
+  return a
+  
 def test_get_positions():
-    assert get_positions([2, 3, 2, 1]) == [0, 2, 5, 7]
+  assert get_positions([2, 3, 2, 1]) == [0, 2, 5, 7]
     
 def construct_output(a, positions):
-    """
-    Construct the final, sorted output.
-
-    Params:
-      a...........input list
-      positions...list of first location of each value in the output.
-      
-    Returns:
-      sorted version of a
-
-    >>> construct_output([2,2,1,0,1,0,1,3], [0, 2, 5, 7])
-    [0,0,1,1,1,2,2,3]    
-    """
-    ###TODO
-    pass
+  
+  list = []
+  for i in a:
+    list.append((positions[i]))
+  return sorted(a)
 
 def test_construct_output():
     assert construct_output([2,2,1,0,1,0,1,3], [0, 2, 5, 7]) == [0,0,1,1,1,2,2,3]
@@ -83,16 +52,20 @@ def count_values_mr(a, k):
 
 def test_count_values_mr():
     assert count_values_mr([2,2,1,0,1,0,1,3], 3) == [2, 3, 2, 1]
-
 def count_map(value):
-    ###TODO
-    pass
+
+  count_map = []
+  count_map.append((value,1))
+  return count_map
+  #print(count_map)
 
 def count_reduce(group):
-    ###TODO
-    pass
 
-
+  count_reduce = []
+  i = reduce(plus, 0, group[1])
+  count_reduce.append(group[0])
+  count_reduce.append(i)
+  return tuple(count_reduce)
 # the below functions are provided for use above.
 
 def run_map_reduce(map_f, reduce_f, mylist):
